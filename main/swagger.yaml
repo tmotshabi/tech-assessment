@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Property API
+  version: 1.0.0
+paths:
+  /api/v1/properties:
+    get:
+      summary: Get all properties with pagination
+      parameters:
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: Page number for pagination
+        - in: query
+          name: per_page
+          required: false
+          schema:
+            type: integer
+            default: 10
+          description: Number of properties per page
+      responses:
+        '200':
+          description: A list of properties with pagination metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                      limit:
+                        type: integer
+                      next_page:
+                        type: integer
+                      previous_page:
+                        type: integer
+                  properties:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+        '404':
+          description: Data not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/properties/{selected_option}:
+    get:
+      summary: Get properties by type with pagination
+      parameters:
+        - in: path
+          name: selected_option
+          required: true
+          schema:
+            type: string
+          description: The property type (e.g., "Full Title Property" or "Sectional Title Property")
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: Page number for pagination
+        - in: query
+          name: per_page
+          required: false
+          schema:
+            type: integer
+            default: 10
+          description: Number of properties per page
+      responses:
+        '200':
+          description: A list of properties for the selected type with pagination metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                      limit:
+                        type: integer
+                      next_page:
+                        type: integer
+                      previous_page:
+                        type: integer
+                  properties:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+        '404':
+          description: Data not available for property type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Property:
+      type: object
+      properties:
+        rate_number:
+          type: string
+        legal_description:
+          type: string
+        address:
+          type: string
+        first_owner:
+          type: string
+        use_code:
+          type: string
+        rating_category:
+          type: string
+        market_value:
+          type: number
+        registered_extent:
+          type: string
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string

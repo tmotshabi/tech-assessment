@@ -1,0 +1,6 @@
+pkg-config
+python3-dev
+gcc
+default-libmysqlclient-dev
+build-essential
+libmariadb-dev-compat
