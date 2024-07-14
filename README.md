@@ -50,7 +50,14 @@ Install Redis:
 3. On Ubuntu: `sudo apt-get update && sudo apt-get install redis-server`
 4. Update your `development.cfg` to include Redis configuration: `REDIS_URL = "redis://<redis-host>"`
 
-## Deployment
+## Deployment Strategy
+
+### Deployment
+- You can use [Heroku](https://www.heroku.com/), which supports a wide range of programming languages and has an easy deployment that links to your github repository and waits on push commits 
+before deploying your work. There is another option that uses the [Heroku-CLI](https://devcenter.heroku.com/articles/heroku-cli) if you don't want to use github.
+- You can also setup a [PostgreSQL](https://www.heroku.com/postgres) database and [Redis](https://www.heroku.com/redis) instance on Heroku and update your `SQLALCHEMY_DATABASE_URI` variable in the `development.cfg`
+- You can setup [Heroku Moonitoring](https://devcenter.heroku.com/articles/monitoring-apps) to notify you of any issues. 
+
 ### Scheduling Tasks
 - You can use the [Astronomer](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart)
 To get started:
