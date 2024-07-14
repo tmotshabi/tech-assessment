@@ -14,6 +14,13 @@ class PropertyListResource(Resource):
         
         paginated_properties = properties[(page - 1) * per_page: page * per_page]
         
+        if len(paginated_properties) == 0:
+            response = make_response(jsonify(
+                {'message': 'No data available'}), 404
+                )
+            response.headers['Content-Type'] = 'application/json'
+            return response
+        
         result = {
             'count': len(paginated_properties),
             'total_count': total_count,
@@ -36,6 +43,13 @@ class PropertyListByTypeResource(Resource):
         total_count = len(properties)
         
         paginated_properties = properties[(page - 1) * per_page: page * per_page]
+        
+        if len(paginated_properties) == 0:
+            response = make_response(jsonify(
+                {'message': 'Could not find data, make sure you are using the correct Type'}), 404
+                )
+            response.headers['Content-Type'] = 'application/json'
+            return response
         
         result = {
             'count': len(paginated_properties),

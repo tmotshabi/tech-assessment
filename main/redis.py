@@ -12,7 +12,7 @@ def get_cached_data_or_fetch(selected_option=None):
         
         if selected_option is not None:
             filtered_data = [item for item in data if item["roll"] == selected_option]
-            return filtered_data if filtered_data else data
+            return filtered_data
         else:
             return data
     else:
